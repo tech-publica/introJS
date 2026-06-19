@@ -1,0 +1,41 @@
+  body {
+    font-family: Arial, sans-serif;
+    width: 800px;
+    margin: 30px auto;
+  }
+
+  #taskInput {
+    width: 300px;
+    padding: 8px;
+  }
+
+  button {
+    padding: 8px;
+  }
+
+  li {
+
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    padding: 10px;
+    margin: 10px 0;
+
+    border: 1px solid gray;
+  }
+
+  .task-text {
+    flex-grow: 1;
+    cursor: pointer;
+  }
+
+  .priority {
+
+    background: gold;
+
+    border: 2px solid orange;
+
+    font-weight: bold;
+  }
+
