@@ -1,0 +1,50 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Synchronous AJAX Example</title>
+    <style>
+      body {
+        max-width: 42rem;
+        margin: 3rem auto;
+        padding: 0 1rem;
+        font-family: system-ui, sans-serif;
+        line-height: 1.5;
+      }
+
+      button {
+        padding: 0.6rem 1rem;
+        cursor: pointer;
+      }
+
+      #result {
+        padding: 1rem;
+        background: #f2f2f2;
+        white-space: pre-wrap;
+      }
+
+      .warning {
+        padding: 0.75rem;
+        border-left: 0.3rem solid #b45309;
+        background: #fffbeb;
+      }
+    </style>
+  </head>
+  <body>
+    <h1>Synchronous AJAX</h1>
+
+    <p class="warning">
+      Teaching example only: synchronous XHR blocks the page and is deprecated
+      on the browser's main thread.
+    </p>
+
+    <p>Current time: <strong id="clock"></strong></p>
+    <button id="loadButton" type="button">Load Luke Skywalker</button>
+    <p id="status">Ready</p>
+    <pre id="result">No character loaded.</pre>
+
+    <script src="script.js"></script>
+  </body>
+</html>
+
