@@ -1,0 +1,47 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dependent Promises</title>
+    <style>
+      body {
+        max-width: 42rem;
+        margin: 3rem auto;
+        padding: 0 1rem;
+        font-family: system-ui, sans-serif;
+        line-height: 1.5;
+      }
+
+      button {
+        padding: 0.6rem 1rem;
+        cursor: pointer;
+      }
+
+      pre,
+      ol {
+        padding: 1rem;
+        background: #f2f2f2;
+        white-space: pre-wrap;
+      }
+    </style>
+  </head>
+  <body>
+    <h1>Dependent Requests with Promises</h1>
+
+    <p>Load Luke, then use his homeworld URL to load his planet.</p>
+
+    <button id="loadButton" type="button">
+      Load character and homeworld
+    </button>
+    <p id="status">Ready</p>
+
+    <h2>Execution steps</h2>
+    <ol id="steps"></ol>
+
+    <h2>Result</h2>
+    <pre id="result">Nothing loaded yet.</pre>
+
+    <script src="script.js"></script>
+  </body>
+</html>

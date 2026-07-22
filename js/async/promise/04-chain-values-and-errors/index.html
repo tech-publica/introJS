@@ -1,0 +1,44 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Promise Chain Values and Errors</title>
+    <style>
+      body {
+        max-width: 44rem;
+        margin: 3rem auto;
+        padding: 0 1rem;
+        font-family: system-ui, sans-serif;
+        line-height: 1.5;
+      }
+
+      button {
+        margin: 0.2rem;
+        padding: 0.6rem 1rem;
+        cursor: pointer;
+      }
+
+      ol {
+        min-height: 8rem;
+        padding: 1rem 1rem 1rem 2.5rem;
+        background: #f2f2f2;
+      }
+    </style>
+  </head>
+  <body>
+    <h1>Values and Errors Through a Chain</h1>
+
+    <p>
+      <button id="successButton" type="button">Run successful chain</button>
+      <button id="failureButton" type="button">
+        Run failure and recovery
+      </button>
+    </p>
+
+    <h2>Execution steps</h2>
+    <ol id="steps"></ol>
+
+    <script src="script.js"></script>
+  </body>
+</html>

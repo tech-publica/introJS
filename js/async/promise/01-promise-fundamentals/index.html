@@ -1,0 +1,59 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Promise Fundamentals</title>
+    <style>
+      body {
+        max-width: 46rem;
+        margin: 3rem auto;
+        padding: 0 1rem;
+        font-family: system-ui, sans-serif;
+        line-height: 1.5;
+      }
+
+      button,
+      select {
+        padding: 0.55rem 0.8rem;
+      }
+
+      button {
+        cursor: pointer;
+      }
+
+      #steps {
+        min-height: 12rem;
+        padding: 1rem 1rem 1rem 2.5rem;
+        background: #f2f2f2;
+      }
+
+      .note {
+        padding: 0.75rem;
+        border-left: 0.3rem solid #2563eb;
+        background: #eff6ff;
+      }
+    </style>
+  </head>
+  <body>
+    <h1>Promise Fundamentals</h1>
+    <p class="note">
+      A promise is an object available now that represents a result which may
+      become available later.
+    </p>
+    <p>
+      <label for="outcome">Settle the promise by </label>
+      <select id="outcome">
+        <option value="fulfill">fulfilling it</option>
+        <option value="reject">rejecting it</option>
+      </select>
+      <button id="startButton" type="button">Create promise</button>
+    </p>
+    <p id="status">No promise created yet.</p>
+
+    <h2>Execution order</h2>
+    <ol id="steps"></ol>
+
+    <script src="script.js"></script>
+  </body>
+</html>

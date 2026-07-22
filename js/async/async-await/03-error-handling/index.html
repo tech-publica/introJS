@@ -1,0 +1,51 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Async/Await Error Handling</title>
+    <style>
+      body {
+        max-width: 42rem;
+        margin: 3rem auto;
+        padding: 0 1rem;
+        font-family: system-ui, sans-serif;
+        line-height: 1.5;
+      }
+
+      button,
+      select {
+        padding: 0.6rem 1rem;
+      }
+
+      button {
+        cursor: pointer;
+      }
+
+      ol,
+      pre {
+        padding: 1rem;
+        background: #f2f2f2;
+        white-space: pre-wrap;
+      }
+    </style>
+  </head>
+  <body>
+    <h1>Handling Awaited Errors</h1>
+
+    <p>
+      <label for="outcome">Request outcome:</label>
+      <select id="outcome">
+        <option value="success">Successful request</option>
+        <option value="failure">Failed request</option>
+      </select>
+      <button id="loadButton" type="button">Run request</button>
+    </p>
+
+    <p id="status">Ready</p>
+    <ol id="steps"></ol>
+    <pre id="result">No request made.</pre>
+
+    <script src="script.js"></script>
+  </body>
+</html>
