@@ -1,7 +1,9 @@
+const API_URL = "https://swapi.dev/api/people/1/";
 const startButton = document.getElementById("startButton");
 const counterButton = document.getElementById("counterButton");
 const status = document.getElementById("status");
 const steps = document.getElementById("steps");
+const result = document.getElementById("result");
 
 let count = 0;
 
@@ -12,39 +14,43 @@ counterButton.addEventListener("click", function () {
   counterButton.textContent = `Counter: ${count}`;
 });
 
-function waitForMessage() {
-  return new Promise(function (resolve) {
-    setTimeout(function () {
-      resolve("The awaited value has arrived");
-    }, 2000);
-  });
-}
+async function getCharacter() {
+  addStep("2. getCharacter starts the Fetch request");
 
-async function getMessage() {
-  addStep("2. getMessage starts");
+  const response = await fetch(API_URL);
+  addStep("4. The response arrived");
 
-  const message = await waitForMessage();
+  if (!response.ok) {
+    throw new Error(`HTTP error: ${response.status}`);
+  }
 
-  addStep(`4. getMessage continues with: ${message}`);
-  return message.toUpperCase();
+  const character = await response.json();
+  addStep("5. The JSON body was parsed");
+  return character;
 }
 
 function runDemonstration() {
   steps.replaceChildren();
-  status.textContent = "Waiting—try clicking the counter...";
+  status.textContent = "Loading—try clicking the counter...";
+  result.textContent = "Waiting for SWAPI...";
   startButton.disabled = true;
 
-  addStep("1. Before calling getMessage");
+  addStep("1. Before calling getCharacter");
 
-  const messagePromise = getMessage();
+  const characterPromise = getCharacter();
 
-  addStep("3. getMessage returned a promise; other code continues");
-  console.log("Returned immediately:", messagePromise);
+  addStep("3. getCharacter returned a promise; other code continues");
+  console.log("Returned immediately:", characterPromise);
 
-  messagePromise
-    .then(function (message) {
-      addStep(`5. The returned promise fulfills with: ${message}`);
+  characterPromise
+    .then(function (character) {
+      addStep(`6. The returned promise fulfills with: ${character.name}`);
       status.textContent = "Finished";
+      result.textContent = `Character: ${character.name}`;
+    })
+    .catch(function (error) {
+      status.textContent = "Failed";
+      result.textContent = error.message;
     })
     .finally(function () {
       startButton.disabled = false;

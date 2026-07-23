@@ -1,6 +1,8 @@
 # Learning Checklist
 
 - [ ] I can explain what happens when an awaited promise rejects.
+- [ ] I understand that Fetch normally fulfills for an HTTP `404`.
+- [ ] I can turn an unsuccessful Fetch response into a thrown error.
 - [ ] I can use `try` around asynchronous operations that may fail.
 - [ ] I can use `catch` to receive and display an error.
 - [ ] I can use `finally` for cleanup that must happen after either outcome.

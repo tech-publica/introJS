@@ -6,30 +6,14 @@ const result = document.getElementById("result");
 
 loadButton.addEventListener("click", loadCharacterAndHomeworld);
 
-function getJson(url) {
-  return new Promise(function (resolve, reject) {
-    const xhr = new XMLHttpRequest();
-    xhr.open("GET", url);
+async function getJson(url) {
+  const response = await fetch(url);
 
-    xhr.onload = function () {
-      if (xhr.status < 200 || xhr.status >= 300) {
-        reject(new Error(`HTTP error: ${xhr.status}`));
-        return;
-      }
+  if (!response.ok) {
+    throw new Error(`HTTP error: ${response.status}`);
+  }
 
-      try {
-        resolve(JSON.parse(xhr.responseText));
-      } catch (error) {
-        reject(error);
-      }
-    };
-
-    xhr.onerror = function () {
-      reject(new Error("Network error"));
-    };
-
-    xhr.send();
-  });
+  return response.json();
 }
 
 async function loadCharacterAndHomeworld() {

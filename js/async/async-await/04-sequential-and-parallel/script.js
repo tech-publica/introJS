@@ -1,3 +1,8 @@
+const CHARACTER_URLS = [
+  "https://swapi.dev/api/people/1/",
+  "https://swapi.dev/api/people/2/",
+  "https://swapi.dev/api/people/3/",
+];
 const sequentialButton = document.getElementById("sequentialButton");
 const parallelButton = document.getElementById("parallelButton");
 const status = document.getElementById("status");
@@ -7,37 +12,58 @@ const result = document.getElementById("result");
 sequentialButton.addEventListener("click", runSequentially);
 parallelButton.addEventListener("click", runInParallel);
 
-function simulateOperation(name) {
-  addStep(`${name} started`);
+async function getJson(url, label) {
+  addStep(`${label} request started`);
+  const response = await fetch(url);
 
-  return new Promise(function (resolve) {
-    setTimeout(function () {
-      addStep(`${name} finished`);
-      resolve(`${name} result`);
-    }, 2000);
-  });
+  if (!response.ok) {
+    throw new Error(`HTTP error: ${response.status}`);
+  }
+
+  const character = await response.json();
+  addStep(`${label} received: ${character.name}`);
+  return character;
 }
 
 async function runSequentially() {
   preparePage("Running sequentially...");
   const startTime = performance.now();
 
-  const firstResult = await simulateOperation("Operation A");
-  const secondResult = await simulateOperation("Operation B");
+  try {
+    const characters = [];
 
-  showResults(firstResult, secondResult, startTime);
+    for (let index = 0; index < CHARACTER_URLS.length; index += 1) {
+      const character = await getJson(
+        CHARACTER_URLS[index],
+        `Request ${index + 1}`,
+      );
+      characters.push(character);
+    }
+
+    showResults(characters, startTime);
+  } catch (error) {
+    showError(error);
+  } finally {
+    enableButtons();
+  }
 }
 
 async function runInParallel() {
   preparePage("Running in parallel...");
   const startTime = performance.now();
 
-  const [firstResult, secondResult] = await Promise.all([
-    simulateOperation("Operation A"),
-    simulateOperation("Operation B"),
-  ]);
+  try {
+    const characterPromises = CHARACTER_URLS.map(function (url, index) {
+      return getJson(url, `Request ${index + 1}`);
+    });
+    const characters = await Promise.all(characterPromises);
 
-  showResults(firstResult, secondResult, startTime);
+    showResults(characters, startTime);
+  } catch (error) {
+    showError(error);
+  } finally {
+    enableButtons();
+  }
 }
 
 function preparePage(message) {
@@ -48,15 +74,24 @@ function preparePage(message) {
   result.textContent = "Waiting...";
 }
 
-function showResults(firstResult, secondResult, startTime) {
+function showResults(characters, startTime) {
   const elapsedSeconds = ((performance.now() - startTime) / 1000).toFixed(1);
 
   status.textContent = "Finished";
   result.textContent = [
-    firstResult,
-    secondResult,
-    `Elapsed time: approximately ${elapsedSeconds} seconds`,
+    ...characters.map(function (character) {
+      return character.name;
+    }),
+    `Elapsed time: ${elapsedSeconds} seconds`,
   ].join("\n");
+}
+
+function showError(error) {
+  status.textContent = "Failed";
+  result.textContent = error.message;
+}
+
+function enableButtons() {
   sequentialButton.disabled = false;
   parallelButton.disabled = false;
 }

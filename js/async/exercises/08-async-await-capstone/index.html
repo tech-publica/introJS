@@ -3,7 +3,7 @@
   <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Sequential and Parallel Await</title>
+    <title>Exercise 8: Async/Await Capstone</title>
     <style>
       body {
         max-width: 46rem;
@@ -13,9 +13,12 @@
         line-height: 1.5;
       }
 
-      button {
-        margin: 0.2rem;
+      button,
+      select {
         padding: 0.6rem 1rem;
+      }
+
+      button {
         cursor: pointer;
       }
 
@@ -28,23 +31,21 @@
     </style>
   </head>
   <body>
-    <h1>Sequential and Parallel Await</h1>
+    <h1>Exercise 8: Async/Await Capstone</h1>
 
     <p>
-      Load three independent SWAPI characters, first one after another and then
-      concurrently.
+      <label for="outcome">Character request:</label>
+      <select id="outcome">
+        <option value="success">Valid character</option>
+        <option value="failure">Invalid character</option>
+      </select>
+      <button id="loadButton" type="button">Load mission data</button>
     </p>
 
-    <button id="sequentialButton" type="button">Run sequentially</button>
-    <button id="parallelButton" type="button">Run in parallel</button>
     <p id="status">Ready</p>
-
-    <h2>Execution steps</h2>
     <ol id="steps"></ol>
-
-    <h2>Result</h2>
     <pre id="result">No requests made.</pre>
 
-    <script src="script.js"></script>
+    <script src="exercise.js"></script>
   </body>
 </html>

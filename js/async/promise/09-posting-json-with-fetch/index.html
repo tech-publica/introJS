@@ -1,0 +1,77 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Posting JSON with Fetch</title>
+    <style>
+      body {
+        max-width: 42rem;
+        margin: 3rem auto;
+        padding: 0 1rem;
+        font-family: system-ui, sans-serif;
+        line-height: 1.5;
+      }
+
+      label {
+        display: block;
+        margin-top: 1rem;
+        font-weight: 600;
+      }
+
+      input,
+      textarea {
+        box-sizing: border-box;
+        width: 100%;
+        padding: 0.6rem;
+        font: inherit;
+      }
+
+      button {
+        margin-top: 1rem;
+        padding: 0.6rem 1rem;
+        cursor: pointer;
+      }
+
+      pre {
+        padding: 1rem;
+        overflow-wrap: anywhere;
+        background: #f2f2f2;
+        white-space: pre-wrap;
+      }
+    </style>
+  </head>
+  <body>
+    <h1>Sending JSON with Fetch</h1>
+
+    <p>
+      JSONPlaceholder simulates creating a resource. It returns a response, but
+      it does not permanently save the post.
+    </p>
+
+    <form id="postForm">
+      <label for="titleInput">Title</label>
+      <input
+        id="titleInput"
+        name="title"
+        value="Learning Fetch"
+        required
+      >
+
+      <label for="bodyInput">Body</label>
+      <textarea id="bodyInput" name="body" rows="4" required>Promises make asynchronous operations composable.</textarea>
+
+      <button id="submitButton" type="submit">Send post</button>
+    </form>
+
+    <p id="status">Ready</p>
+
+    <h2>Request sent</h2>
+    <pre id="requestOutput">No request sent yet.</pre>
+
+    <h2>Response received</h2>
+    <pre id="responseOutput">No response received yet.</pre>
+
+    <script src="script.js"></script>
+  </body>
+</html>

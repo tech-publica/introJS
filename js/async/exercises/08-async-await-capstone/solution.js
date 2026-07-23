@@ -6,7 +6,7 @@ const status = document.getElementById("status");
 const steps = document.getElementById("steps");
 const result = document.getElementById("result");
 
-loadButton.addEventListener("click", loadCharacter);
+loadButton.addEventListener("click", loadMission);
 
 async function getJson(url) {
   const response = await fetch(url);
@@ -15,11 +15,11 @@ async function getJson(url) {
     throw new Error(`HTTP error: ${response.status}`);
   }
 
-  return response.json();
+  return await response.json();
 }
 
-async function loadCharacter() {
-  const url = outcome.value === "success" ? VALID_URL : INVALID_URL;
+async function loadMission() {
+  const characterUrl = outcome.value === "success" ? VALID_URL : INVALID_URL;
 
   loadButton.disabled = true;
   outcome.disabled = true;
@@ -28,18 +28,35 @@ async function loadCharacter() {
   result.textContent = "Waiting...";
 
   try {
-    addStep("1. Entering try and starting the request");
-    const character = await getJson(url);
+    addStep("1. Requesting the character");
+    const character = await getJson(characterUrl);
 
-    addStep("2. The promise fulfilled; execution continues in try");
+    addStep(`2. Received ${character.name}`);
+    addStep("3. Requesting the dependent homeworld");
+    const planet = await getJson(character.homeworld);
+
+    addStep(`4. Received ${planet.name}`);
+    addStep("5. Starting three independent film requests");
+    const filmPromises = character.films.slice(0, 3).map(function (url) {
+      return getJson(url);
+    });
+    const films = await Promise.all(filmPromises);
+
+    addStep("6. Received all three films");
     status.textContent = "Finished";
-    result.textContent = `Character: ${character.name}`;
+    result.textContent = [
+      `Character: ${character.name}`,
+      `Homeworld: ${planet.name}`,
+      "Films:",
+      ...films.map(function (film) {
+        return `- ${film.title}`;
+      }),
+    ].join("\n");
   } catch (error) {
-    addStep("2. The promise rejected; execution jumps to catch");
+    addStep("The operation failed");
     status.textContent = "Failed";
     result.textContent = error.message;
   } finally {
-    addStep("3. finally runs after either outcome");
     loadButton.disabled = false;
     outcome.disabled = false;
   }
@@ -49,5 +66,4 @@ function addStep(message) {
   const item = document.createElement("li");
   item.textContent = message;
   steps.appendChild(item);
-  console.log(message);
 }

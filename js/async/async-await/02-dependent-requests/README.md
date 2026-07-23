@@ -7,7 +7,7 @@ not only the new syntax.
 
 ## From a promise chain to await
 
-The promise version was:
+The Fetch promise-chain version was:
 
 ```js
 getJson(CHARACTER_URL)
@@ -28,6 +28,26 @@ const planet = await getJson(character.homeworld);
 
 The first `await` produces the character object. The second request needs the
 `homeworld` property from that object, so it cannot begin earlier.
+
+## Fetch helper written with await
+
+The helper itself can also use `async` and `await`:
+
+```js
+async function getJson(url) {
+  const response = await fetch(url);
+
+  if (!response.ok) {
+    throw new Error(`HTTP error: ${response.status}`);
+  }
+
+  return response.json();
+}
+```
+
+The helper awaits the response so it can check `response.ok`. Returning the
+promise from `response.json()` is sufficient: an async function's returned
+promise adopts the state and value of a returned promise.
 
 ## Read the function in stages
 
@@ -67,4 +87,4 @@ must be placed after the character has arrived.
 ## Key takeaway
 
 Use consecutive `await` expressions when a later operation needs data produced
-by an earlier operation.
+by an earlier operation. Fetch supplies the promises; `await` consumes them.

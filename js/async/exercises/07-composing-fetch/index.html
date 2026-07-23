@@ -3,7 +3,7 @@
   <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Sequential and Parallel Await</title>
+    <title>Exercise 7: Composing Fetch</title>
     <style>
       body {
         max-width: 46rem;
@@ -19,8 +19,8 @@
         cursor: pointer;
       }
 
-      ol,
       pre {
+        min-height: 7rem;
         padding: 1rem;
         background: #f2f2f2;
         white-space: pre-wrap;
@@ -28,23 +28,18 @@
     </style>
   </head>
   <body>
-    <h1>Sequential and Parallel Await</h1>
+    <h1>Exercise 7: Composing Fetch Requests</h1>
 
-    <p>
-      Load three independent SWAPI characters, first one after another and then
-      concurrently.
-    </p>
+    <button id="dependentButton" type="button">
+      Load Luke and homeworld
+    </button>
+    <button id="parallelButton" type="button">
+      Load three characters
+    </button>
 
-    <button id="sequentialButton" type="button">Run sequentially</button>
-    <button id="parallelButton" type="button">Run in parallel</button>
     <p id="status">Ready</p>
-
-    <h2>Execution steps</h2>
-    <ol id="steps"></ol>
-
-    <h2>Result</h2>
     <pre id="result">No requests made.</pre>
 
-    <script src="script.js"></script>
+    <script src="exercise.js"></script>
   </body>
 </html>

@@ -40,22 +40,15 @@ callback/
     └── script.js
 ```
 
-Start a local web server from the project root:
+Open each example with VS Code Live Server:
 
-```sh
-python3 -m http.server 8000
-```
+1. Right-click the example's `index.html`.
+2. Select **Open with Live Server**.
+3. Keep the browser console open.
 
-Then open these URLs:
-
-```text
-http://localhost:8000/js/async/callback/01-synchronous-xhr/
-http://localhost:8000/js/async/callback/02-asynchronous-xhr/
-http://localhost:8000/js/async/callback/03-dependent-callbacks/
-```
-
-Using a local server avoids browser restrictions that can apply when opening an
-HTML file directly from the filesystem.
+Begin with `01-synchronous-xhr/index.html`, then continue with examples 2 and 3.
+Live Server avoids browser restrictions that can apply when opening an HTML file
+directly from the filesystem.
 
 ## Example 1: synchronous XHR
 

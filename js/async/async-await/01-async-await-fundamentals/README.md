@@ -29,24 +29,32 @@ answer().then(function (value) {
 This remains true even if the function contains no `await`. Calling an async
 function always returns a promise.
 
-## 2. Awaiting a promise
+## 2. Awaiting Fetch promises
 
-Inside an async function, `await` can obtain a promise's fulfillment value:
+`fetch` returns a promise for a `Response`. `response.json()` returns a second
+promise for the parsed body. Both can be awaited:
 
 ```js
-async function getMessage() {
-  const message = await waitForMessage();
-  return message.toUpperCase();
+async function getCharacter() {
+  const response = await fetch(API_URL);
+
+  if (!response.ok) {
+    throw new Error(`HTTP error: ${response.status}`);
+  }
+
+  const character = await response.json();
+  return character;
 }
 ```
 
 When execution reaches `await`:
 
-1. `waitForMessage()` produces a promise;
-2. `getMessage` pauses and returns its own pending promise;
-3. JavaScript outside `getMessage` continues running;
-4. when the awaited promise fulfills, `getMessage` resumes;
-5. its returned string fulfills the promise returned by `getMessage`.
+1. `fetch()` produces a promise;
+2. `getCharacter` pauses and returns its own pending promise;
+3. JavaScript outside `getCharacter` continues running;
+4. when the response arrives, `getCharacter` resumes;
+5. it pauses again while `response.json()` reads and parses the body;
+6. the returned character fulfills the promise returned by `getCharacter`.
 
 The word “pause” applies only to the current invocation of the async function.
 The counter remains clickable because the browser's main thread is not blocked.
@@ -56,15 +64,15 @@ The counter remains clickable because the browser's main thread is not blocked.
 These forms express the same basic dependency:
 
 ```js
-waitForMessage().then(function (message) {
-  console.log(message);
+fetch(API_URL).then(function (response) {
+  return response.json();
 });
 ```
 
 ```js
-async function showMessage() {
-  const message = await waitForMessage();
-  console.log(message);
+async function getCharacter() {
+  const response = await fetch(API_URL);
+  return response.json();
 }
 ```
 
@@ -74,10 +82,10 @@ more sequential-looking way to write code that still uses promises.
 ## 4. Predict the demonstration
 
 Before clicking, predict the numbered order. Pay special attention to message 3:
-it appears while `getMessage` is waiting. Click the counter during the wait to
+it appears while `getCharacter` is waiting. Click the counter during the wait to
 prove that the page remains responsive.
 
 ## Key takeaway
 
-An async function always returns a promise. `await` pauses that async function
-until a promise settles while allowing unrelated JavaScript to continue.
+An async function always returns a promise. `await` lets it consume Fetch's
+response and body promises without blocking unrelated JavaScript.

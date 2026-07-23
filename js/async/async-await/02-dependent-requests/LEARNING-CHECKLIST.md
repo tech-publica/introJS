@@ -1,6 +1,8 @@
 # Learning Checklist
 
 - [ ] I can rewrite a `.then()` chain using `async` and `await`.
+- [ ] I can write a Fetch-based `getJson` helper with `async` and `await`.
+- [ ] I can explain why the helper checks `response.ok`.
 - [ ] I can explain why the second request must wait for the first request.
 - [ ] I can identify the value produced by each `await` expression.
 - [ ] I remember that the async function still returns a promise.

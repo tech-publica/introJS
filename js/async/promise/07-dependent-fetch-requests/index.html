@@ -3,10 +3,10 @@
   <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Sequential and Parallel Await</title>
+    <title>Dependent Fetch Requests</title>
     <style>
       body {
-        max-width: 46rem;
+        max-width: 42rem;
         margin: 3rem auto;
         padding: 0 1rem;
         font-family: system-ui, sans-serif;
@@ -14,13 +14,12 @@
       }
 
       button {
-        margin: 0.2rem;
         padding: 0.6rem 1rem;
         cursor: pointer;
       }
 
-      ol,
-      pre {
+      pre,
+      ol {
         padding: 1rem;
         background: #f2f2f2;
         white-space: pre-wrap;
@@ -28,22 +27,20 @@
     </style>
   </head>
   <body>
-    <h1>Sequential and Parallel Await</h1>
+    <h1>Dependent Requests with Fetch</h1>
 
-    <p>
-      Load three independent SWAPI characters, first one after another and then
-      concurrently.
-    </p>
+    <p>Load Luke, then use his homeworld URL to load his planet.</p>
 
-    <button id="sequentialButton" type="button">Run sequentially</button>
-    <button id="parallelButton" type="button">Run in parallel</button>
+    <button id="loadButton" type="button">
+      Load character and homeworld
+    </button>
     <p id="status">Ready</p>
 
     <h2>Execution steps</h2>
     <ol id="steps"></ol>
 
     <h2>Result</h2>
-    <pre id="result">No requests made.</pre>
+    <pre id="result">Nothing loaded yet.</pre>
 
     <script src="script.js"></script>
   </body>
